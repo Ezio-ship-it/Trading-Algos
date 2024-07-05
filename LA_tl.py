@@ -60,13 +60,13 @@ for i in range(len(data)):
     if pivot_low.iloc[i]:
         lower.iloc[i] = data['Low'].iloc[i]
     elif i > 0:
-        lower.iloc[i] = lower.iloc[i-1] + slope.iloc[i] #Up slope is curr low is not lowest
+        lower.iloc[i] = lower.iloc[i-1] + slope.iloc[i] #Up slope if curr low is not lowest
 
 
 upward_breakout = (data['Close'] > upper) & (data['Close'].shift(1) <= upper.shift(1)) #Close above upper chanel & check if prev day close is under chanel or not
 downward_breakout = (data['Close'] < lower) & (data['Close'].shift(1) >= lower.shift(1)) #Close below lower chanel 
  
-
+##Below everything is just for visualization and can be ignored
 upward_markers = pd.Series(np.where(upward_breakout, data['Low'], np.nan), index=data.index) # Breakout and breakdown arrow
 downward_markers = pd.Series(np.where(downward_breakout, data['High'], np.nan), index=data.index)
 
