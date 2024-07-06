@@ -27,9 +27,12 @@ def calculate_atr(data, length):
 
 
 def calculate_pivots(data, length):
-    pivot_high = data['High'].rolling(window=2*length+1, center=True).apply(lambda x: x.iloc[length] == max(x)) #window inc (left,center,right),x[iloc] for peak high
-    pivot_low = data['Low'].rolling(window=2*length+1, center=True).apply(lambda x: x.iloc[length] == min(x)) #peak low
+    ph = data['High'].rolling(window=2*length+1, center=True) #window inc (left,center,right),x[iloc] for peak high
+    pivot_high = ph.apply(lambda x: x.iloc[length] == max(x))
+    pl = data['Low'].rolling(window=2*length+1, center=True) #peak low
+    pivot_low = pl.apply(lambda x: x.iloc[length] == min(x))
     return pivot_high, pivot_low
+
 
 
 symbol = "RECLTD.NS"
